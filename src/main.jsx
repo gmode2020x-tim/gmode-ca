@@ -22,9 +22,10 @@ function App() {
         />
         <a
           className="landing-cta-hotspot"
-          href="mailto:info@gmode.ca?subject=GMODE.CA%20Project%20Inquiry"
+          href="mailto:tim@gmode.ca?subject=GMODE.CA%20Project%20Inquiry"
           aria-label="Email GMODE.CA about a project"
         />
+        <span className="landing-email-correction" aria-hidden="true">TIM@GMODE.CA</span>
       </figure>
       <a className="landing-login" href="/admin">
         Login

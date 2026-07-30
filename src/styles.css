@@ -100,6 +100,22 @@ a {
   box-shadow: 0 0 0 6px rgba(28, 143, 255, 0.48);
 }
 
+.landing-email-correction {
+  position: absolute;
+  left: 20.95%;
+  top: 92.25%;
+  display: inline-flex;
+  align-items: center;
+  height: 2.4%;
+  padding: 0 0.85%;
+  color: #f6f8fb;
+  background: #03060a;
+  font-size: min(1.18vw, 15.1px);
+  font-weight: 660;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
