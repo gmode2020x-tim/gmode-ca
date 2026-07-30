@@ -11,9 +11,24 @@ function App() {
   }
 
   return (
-    <main className="landing-shell">
-      <h1>Gmode</h1>
-      <a href="/admin">Login</a>
+    <main className="landing-shell" aria-labelledby="landing-title">
+      <h1 id="landing-title" className="sr-only">
+        GMODE.CA control systems
+      </h1>
+      <figure className="landing-art" aria-label="GMODE.CA smarter systems, cleaner design, stronger results">
+        <img
+          src="/images/gmode-landing.jpg"
+          alt="GMODE.CA landing screen for professional electrical design and control system solutions."
+        />
+        <a
+          className="landing-cta-hotspot"
+          href="mailto:info@gmode.ca?subject=GMODE.CA%20Project%20Inquiry"
+          aria-label="Email GMODE.CA about a project"
+        />
+      </figure>
+      <a className="landing-login" href="/admin">
+        Login
+      </a>
     </main>
   );
 }
