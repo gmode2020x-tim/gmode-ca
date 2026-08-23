@@ -644,6 +644,13 @@ input {
   font-weight: 820;
 }
 
+.link-stack {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 18px;
+}
+
 .asset-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -973,6 +980,7 @@ input:focus {
   .hero-actions,
   .site-footer,
   .section-heading.split,
+  .link-stack,
   .launch-section {
     align-items: stretch;
     flex-direction: column;

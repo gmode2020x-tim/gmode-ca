@@ -354,10 +354,16 @@ function VideoStoryboards() {
           <h2 id="video-title">Video storyboards.</h2>
           <p>Short launch video structures for reels, ads, and app preview cuts.</p>
         </div>
-        <a className="text-action" href="/marketing/gmode-video-storyboards.md">
-          <Film size={18} aria-hidden="true" />
-          View scripts
-        </a>
+        <div className="link-stack">
+          <a className="text-action" href="/marketing/gmode-launch-preview.mp4">
+            <Play size={18} aria-hidden="true" />
+            Preview MP4
+          </a>
+          <a className="text-action" href="/marketing/gmode-video-storyboards.md">
+            <Film size={18} aria-hidden="true" />
+            View scripts
+          </a>
+        </div>
       </div>
       <div className="storyboard-grid">
         {videoStoryboards.map(([number, title, copy, timing]) => (

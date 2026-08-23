@@ -65,4 +65,5 @@ Rider-focused post:
 - Launch poster: `/marketing/gmode-launch-poster.svg`
 - Story ad: `/marketing/gmode-story-ad.svg`
 - Feature card: `/marketing/gmode-feature-card.svg`
+- Launch preview video: `/marketing/gmode-launch-preview.mp4`
 - Video storyboards: `/marketing/gmode-video-storyboards.md`
