@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img" aria-labelledby="title desc">
+  <title id="title">GMODE Trip Recorder vertical story ad</title>
+  <desc id="desc">Vertical story ad for GMODE Trip Recorder showing trip categories and app launch message.</desc>
+  <rect width="1080" height="1920" fill="#02070d"/>
+  <circle cx="860" cy="260" r="280" fill="#0a2337"/>
+  <circle cx="180" cy="1600" r="360" fill="#102b1b"/>
+  <path d="M90 1260 C230 1040 350 1180 455 920 S710 610 950 720" fill="none" stroke="#1992ff" stroke-width="18" stroke-linecap="round"/>
+  <path d="M170 430 C350 580 330 770 510 835 S760 1010 910 1220" fill="none" stroke="#69d43f" stroke-width="16" stroke-linecap="round"/>
+  <text x="72" y="150" font-family="Arial, sans-serif" font-size="34" font-weight="900" fill="#f5f9ff">GMODE</text>
+  <text x="72" y="190" font-family="Arial, sans-serif" font-size="25" font-weight="700" fill="#1992ff">Trip Recorder</text>
+  <text x="72" y="430" font-family="Arial, sans-serif" font-size="102" font-weight="900" fill="#f5f9ff">Street.</text>
+  <text x="72" y="548" font-family="Arial, sans-serif" font-size="102" font-weight="900" fill="#69d43f">Off road.</text>
+  <text x="72" y="666" font-family="Arial, sans-serif" font-size="102" font-weight="900" fill="#b9ecff">Snow.</text>
+  <text x="72" y="784" font-family="Arial, sans-serif" font-size="102" font-weight="900" fill="#41d5ff">Water.</text>
+  <rect x="132" y="1020" width="816" height="480" rx="52" fill="#07121c" stroke="#274558" stroke-width="4"/>
+  <rect x="190" y="1100" width="700" height="130" rx="24" fill="#0d1c29"/>
+  <text x="230" y="1178" font-family="Arial, sans-serif" font-size="48" font-weight="900" fill="#f5f9ff">Your trips, organized.</text>
+  <text x="230" y="1258" font-family="Arial, sans-serif" font-size="34" fill="#9fb0bd">Distance. Duration. Maps.</text>
+  <rect x="190" y="1310" width="700" height="118" rx="24" fill="#0d1c29"/>
+  <text x="230" y="1382" font-family="Arial, sans-serif" font-size="40" font-weight="900" fill="#1992ff">Coming to Google Play</text>
+  <text x="72" y="1710" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#c4d0da">Join the launch list at</text>
+  <text x="72" y="1780" font-family="Arial, sans-serif" font-size="62" font-weight="900" fill="#f5f9ff">gmode.ca</text>
+</svg>
