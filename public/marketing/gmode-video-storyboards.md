@@ -1,43 +1,47 @@
 # GMODE Trip Recorder Video Storyboards
 
-## 24-Second Launch Spot
+## Current 24-Second Vertical Launch Video
 
-Format: 9:16 vertical reel or Google Play preview cut.
+Format: 1080 x 1920 H.264 MP4, 24 seconds, no audio.
 
-| Time | Scene | Visual | Voiceover |
-| --- | --- | --- | --- |
-| 0:00-0:04 | Open Road | Dark map, blue route line draws across a road trip. | Every route tells a story. |
-| 0:04-0:08 | Off Road | Green trail route splits into an off-road group. | But not every route belongs in the same list. |
-| 0:08-0:12 | Snow | Snow route card appears with distance and duration. | Street, off-road, snow, and water stay organized. |
-| 0:12-0:15 | Water | Cyan route line moves across a lake map. | See the right trips in the right place. |
-| 0:15-0:20 | Organized History | Trip cards stack by type with map previews and stats. | Clean maps. Clear stats. Real trip history. |
-| 0:20-0:24 | Launch | GMODE Trip Recorder logo and Google Play launch list CTA. | GMODE Trip Recorder. Coming to Google Play. |
+| Time | Real app visual | On-screen copy |
+| --- | --- | --- |
+| 0:00-0:06 | 3D SxS attitude cockpit | Your phone. Your cockpit. / Offline GPS - 3D attitude |
+| 0:06-0:12 | Red attitude limit bezel | Stay in the green. / Configurable attitude warnings |
+| 0:12-0:18 | Street speed gauge and truck scene | 13 live gauges. / Street - Off road - Snow - Water |
+| 0:18-0:24 | Water attitude and mini jet boat | Coming to Google Play / GMODE Trip Recorder / gmode.ca |
 
-## 15-Second Short Ad
+Download: [gmode-launch-preview.mp4](/marketing/gmode-launch-preview.mp4)
 
-| Time | Scene | Visual | On-screen copy |
-| --- | --- | --- | --- |
-| 0:00-0:03 | Hook | Mixed routes scatter, then sort into four lanes. | Stop mixing every trip. |
-| 0:03-0:08 | Product | Phone preview with map and trip cards. | Street. Off road. Snow. Water. |
-| 0:08-0:12 | Benefit | Clean trip cards with distance, duration, and speed. | Clean history, your way. |
-| 0:12-0:15 | CTA | GMODE logo and launch CTA. | Join the Google Play launch list. |
+## Optional Voiceover
+
+> Turn your landscape-mounted Android phone into a real trip cockpit. Record offline GPS, watch live attitude and telemetry, and sync to your own Home Assistant server when the network returns. GMODE Trip Recorder. Coming to Google Play.
+
+## 15-Second Cut
+
+| Time | Visual | On-screen copy |
+| --- | --- | --- |
+| 0:00-0:04 | 3D attitude cockpit | Your phone. Your cockpit. |
+| 0:04-0:08 | Red limit warning | Know your angle. |
+| 0:08-0:12 | Street and Water gauges | Four modes. Thirteen gauges. |
+| 0:12-0:15 | App icon and cockpit | Coming to Google Play / gmode.ca |
 
 ## 6-Second Bumper
 
-Visual: Blue and green route lines draw across a dark contour map.
+Visual: 3D attitude cockpit followed by the GMODE app icon.
 
 Copy:
 
-> Every route, sorted.
+> Your phone. Your cockpit.
 
 End card:
 
 > GMODE Trip Recorder. Coming to Google Play.
 
-## Production Notes
+## Production Rules
 
-- Keep the palette dark graphite with electric blue and trail green accents.
-- Do not show fake app-store ratings or fake user counts.
-- Use real app screenshots when available.
-- Until Google Play is live, use "Coming to Google Play" or "Join the launch list."
-- Avoid making privacy claims beyond "history-first" unless the final app policy is written.
+- Use only current screenshots copied from the Jarvis Android project.
+- Keep the black leather, white condensed type, and instrument-red accent system.
+- Do not show fake Play Store ratings, installs, reviews, or availability.
+- Do not imply that the attitude display is a certified safety instrument.
+- Use "Coming to Google Play" until the production listing is live.

@@ -1,69 +1,74 @@
 # GMODE Trip Recorder Marketing Kit
 
-## Product Position
+This kit is based on the current GMODE Trip Recorder v2.0 Android application and its real Galaxy S24 cockpit screenshots.
 
-GMODE Trip Recorder is a route-history app for people who move across different terrain and want their trips organized by how they travel.
+## Positioning
 
 Primary message:
 
-> Every route, sorted the way you ride.
+> Your phone. Your cockpit.
 
 Supporting message:
 
-> Street, off-road, snow, and water trips each get their own clean map, stats, and history.
+> Offline-first GPS trip recording, live S24 telemetry, 3D attitude, and Home Assistant sync.
 
-## Short Description
+## Google Play Copy
 
-GMODE Trip Recorder turns GPS movement into clean trip history for street rides, off-road trails, snow routes, and water trips.
+**App name:** GMODE Trip Recorder
 
-## Google Play Draft Description
+**Category:** Maps & Navigation
 
-Track your routes and keep every trip organized. GMODE Trip Recorder separates street, off-road, snow, and water trips so your history stays clear. Review route maps, distance, duration, average speed, and trip cards without mixing every activity into one list.
+**Short description:**
 
-Built for riders, explorers, and anyone who wants cleaner route history.
+> Offline GPS and phone telemetry trips with 3D attitude and Home Assistant sync.
 
-## Feature Bullets
+**Launch status:** Coming to Google Play. Do not describe the app as available until the production listing is live.
 
-- Automatic trip history
-- Separate Street, Off road, Snow, and Water views
-- Clean route maps and trip cards
-- Distance, duration, and average speed stats
-- Route groups for repeated or imported trips
-- Private history-first design
+## Verified Feature Points
 
-## Social Captions
+- Offline-first recording that does not depend on Home Assistant connectivity
+- Street, Off road, Snow, and Water trip modes
+- Dynamic Truck, SxS, Sand rail, Snowmobile, and Mini jet boat scenes
+- Live pitch, roll, GPS or magnetic course, speed, altitude, satellites, battery, and network state
+- Thirteen selectable and reorderable gauges
+- Six configurable dashboard side buttons
+- Opt-in GPS and Wi-Fi automatic departure recording
+- GPX, KML, GeoJSON, and full-telemetry CSV export
+- Optional authenticated Home Assistant synchronization with retry
+- No advertising, analytics, GMODE account, or GMODE cloud
 
-Launch teaser:
+## Social Copy
 
-> GMODE Trip Recorder is coming to Google Play. Street. Off road. Snow. Water. Every route, sorted the way you ride.
+**Launch teaser**
 
-Feature post:
+> Your phone. Your cockpit. GMODE Trip Recorder brings offline GPS, live telemetry and 3D attitude to a landscape-mounted Android phone. Coming to Google Play.
 
-> Stop mixing every GPS track into one messy timeline. GMODE Trip Recorder keeps route history clean by trip type.
+**Cockpit feature**
 
-Rider-focused post:
+> Live pitch, roll and course. A dynamic 3D vehicle. Configurable caution and limit warnings. One cockpit for road, trail, snow and water.
 
-> Road ride today, trail run tomorrow, snow route next month. GMODE Trip Recorder keeps the map organized.
+**Privacy feature**
 
-## Ad Headlines
-
-- Every route, sorted.
-- Track it. Remember it.
-- Clean maps. Real trip history.
-- Built for street, off-road, snow, and water.
-- Your trips, organized.
+> No ads. No account. No GMODE cloud. Trips stay on your phone unless you export them or connect your own Home Assistant server.
 
 ## Calls To Action
 
-- Join the Google Play launch list
+- Coming to Google Play
 - Get launch updates
-- Follow the build
-- See the route story
+- See the cockpit
+- Visit gmode.ca
 
-## Asset Links
+## Current Assets
 
-- Launch poster: `/marketing/gmode-launch-poster.svg`
-- Story ad: `/marketing/gmode-story-ad.svg`
-- Feature card: `/marketing/gmode-feature-card.svg`
-- Launch preview video: `/marketing/gmode-launch-preview.mp4`
-- Video storyboards: `/marketing/gmode-video-storyboards.md`
+- [Google Play feature graphic](/app/feature-graphic-1024x500.png)
+- [1080 x 1350 launch poster](/marketing/gmode-launch-poster-v2.png)
+- [1080 x 1920 story ad](/marketing/gmode-story-ad-v2.png)
+- [24-second vertical launch video](/marketing/gmode-launch-preview.mp4)
+- [3D attitude screenshot](/app/01-attitude-dashboard.png)
+- [Limit warning screenshot](/app/02-limit-warning.png)
+- [Street speed screenshot](/app/03-speed-street.png)
+- [Water course screenshot](/app/04-water-course.png)
+
+## Safety and Accuracy
+
+The attitude and shock displays are situational aids, not certified safety instruments. Do not add ratings, user counts, testimonials, safety guarantees, cloud services, subscriptions, or Play Store availability that do not exist in the current app.
