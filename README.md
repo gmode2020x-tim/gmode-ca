@@ -1,17 +1,17 @@
 # gmode.ca
 
-Public launch website for **GMODE Trip Recorder**, an offline-first Android GPS and telemetry cockpit developed in the Jarvis repository.
+Public launch website for **GMODE Trip Recorder**, an offline-first Android GPS and telemetry cockpit maintained in its dedicated repository.
 
 ## Product source of truth
 
 Website claims and product screenshots are based on:
 
-- `Jarvis/android/gmode-trip-recorder/app/` - Android application source
-- `Jarvis/android/gmode-trip-recorder/docs/PLAY_STORE_LISTING.md` - approved product description
-- `Jarvis/android/gmode-trip-recorder/docs/USER_GUIDE.md` - user-visible behaviour
-- `Jarvis/android/gmode-trip-recorder/play-store/` - current Google Play graphics
+- `gmode-trip-recorder/app/` - Android application source
+- `gmode-trip-recorder/docs/PLAY_STORE_LISTING.md` - approved product description
+- `gmode-trip-recorder/docs/USER_GUIDE.md` - user-visible behaviour
+- `gmode-trip-recorder/play-store/` - current Google Play graphics
 
-The copied public assets live in `public/app/`. Refresh them from Jarvis when the app screenshots or Play Store artwork changes.
+The copied public assets live in `public/app/`. Refresh them from the standalone GMODE repository when the app screenshots or Play Store artwork changes.
 
 ## Local development
 
@@ -57,8 +57,8 @@ The `www.gmode.ca` hostname redirects to the apex domain through `vercel.json`. 
 Public GitHub releases are the official GMODE Trip Recorder download source:
 
 - Profile: `https://github.com/gmode2020x-tim`
-- Repository: `https://github.com/gmode2020x-tim/jarvis-local-llm`
-- Current release: `https://github.com/gmode2020x-tim/jarvis-local-llm/releases/tag/v2.0.0`
+- Repository: `https://github.com/gmode2020x-tim/gmode-trip-recorder`
+- Current release: `https://github.com/gmode2020x-tim/gmode-trip-recorder/releases/tag/v2.0.0`
 
 The website links the primary download action to the recommended v2.0.0 install ZIP. Keep the release page link visible so users can also obtain the standalone APK and verify the published SHA-256 checksums.
 

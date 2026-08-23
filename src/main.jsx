@@ -24,7 +24,7 @@ import "./styles.css";
 
 const launchEmail = "tim@gmode.ca";
 const githubProfile = "https://github.com/gmode2020x-tim";
-const githubRepository = "https://github.com/gmode2020x-tim/jarvis-local-llm";
+const githubRepository = "https://github.com/gmode2020x-tim/gmode-trip-recorder";
 const githubRelease = `${githubRepository}/releases/tag/v2.0.0`;
 const githubInstallZip = `${githubRepository}/releases/download/v2.0.0/GMODE-Trip-Recorder-v2.0.0-install.zip`;
 
