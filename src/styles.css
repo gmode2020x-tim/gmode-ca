@@ -157,7 +157,13 @@ img { max-width: 100%; }
   border: 1px solid var(--red);
   content: "";
 }
-.hero-media img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.hero-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+}
 
 .proof-strip {
   display: grid;
@@ -184,7 +190,13 @@ img { max-width: 100%; }
 
 .cockpit-stage { position: relative; }
 .cockpit-stage figure { margin: 0; border: 1px solid var(--line-bright); background: #000; }
-.cockpit-stage img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.cockpit-stage img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+}
 .cockpit-stage figcaption { display: flex; align-items: center; gap: 28px; padding: 19px 22px; border-top: 1px solid var(--line); }
 .cockpit-stage figcaption strong { color: var(--red); font-family: var(--heading); font-size: 23px; text-transform: uppercase; }
 .cockpit-stage figcaption span { color: var(--muted); }
