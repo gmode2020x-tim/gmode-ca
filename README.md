@@ -52,6 +52,16 @@ npm run deploy
 
 The `www.gmode.ca` hostname redirects to the apex domain through `vercel.json`. After deployment, verify `/`, `/admin`, the four cockpit screenshots, the app icon, the feature graphic, and the production response headers.
 
+## Official downloads
+
+Public GitHub releases are the official GMODE Trip Recorder download source:
+
+- Profile: `https://github.com/gmode2020x-tim`
+- Repository: `https://github.com/gmode2020x-tim/jarvis-local-llm`
+- Current release: `https://github.com/gmode2020x-tim/jarvis-local-llm/releases/tag/v2.0.0`
+
+The website links the primary download action to the recommended v2.0.0 install ZIP. Keep the release page link visible so users can also obtain the standalone APK and verify the published SHA-256 checksums.
+
 ## Privacy and accuracy
 
 The public copy follows the app's current privacy model: no advertising, analytics, GMODE account system, or GMODE cloud. Trip data stays on the phone unless the user exports it or configures Home Assistant synchronization. Do not add unimplemented Google Play availability, safety, cloud, social, or subscription claims.

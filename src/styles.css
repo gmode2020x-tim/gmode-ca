@@ -278,7 +278,11 @@ img { max-width: 100%; }
 .launch-section { display: grid; grid-template-columns: 220px minmax(0, 1fr) auto; gap: 52px; align-items: center; }
 .launch-section p { margin-top: 14px; }
 .launch-actions { display: grid; gap: 16px; min-width: 260px; }
-.email-link { display: flex; align-items: center; justify-content: center; gap: 9px; color: var(--red); font-size: 15px; }
+.release-link,
+.email-link { display: flex; align-items: center; justify-content: center; gap: 9px; font-size: 15px; }
+.release-link { color: #f7f7f4; }
+.release-link:hover { color: var(--red); }
+.email-link { color: var(--red); }
 
 .site-footer { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px 0 34px; border-top: 1px solid var(--line); color: #777; }
 .site-footer p { margin: 0; }

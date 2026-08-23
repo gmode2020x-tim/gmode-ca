@@ -8,12 +8,12 @@ import {
   CloudCog,
   Download,
   Gauge,
+  Github,
   House,
   LockKeyhole,
   LogOut,
   Mail,
   MapPin,
-  Play,
   Radio,
   Settings2,
   ShieldCheck,
@@ -23,6 +23,10 @@ import {
 import "./styles.css";
 
 const launchEmail = "tim@gmode.ca";
+const githubProfile = "https://github.com/gmode2020x-tim";
+const githubRepository = "https://github.com/gmode2020x-tim/jarvis-local-llm";
+const githubRelease = `${githubRepository}/releases/tag/v2.0.0`;
+const githubInstallZip = `${githubRepository}/releases/download/v2.0.0/GMODE-Trip-Recorder-v2.0.0-install.zip`;
 
 const cockpitViews = [
   {
@@ -127,7 +131,9 @@ function Header() {
         <a href="#features">Features</a>
         <a href="#privacy">Privacy</a>
       </nav>
-      <a className="outline-action" href="#launch">Coming to Google Play</a>
+      <a className="outline-action" href={githubRelease} target="_blank" rel="noreferrer">
+        Official GitHub download
+      </a>
     </header>
   );
 }
@@ -139,7 +145,7 @@ function Hero() {
         <h1>Your phone.<br />Your cockpit.</h1>
         <p>Offline-first GPS trip recording, live S24 telemetry, 3D attitude, and Home Assistant sync.</p>
         <div className="hero-actions">
-          <a className="button primary" href="#launch"><Play size={18} aria-hidden="true" />Coming to Google Play</a>
+          <a className="button primary" href={githubRelease} target="_blank" rel="noreferrer"><Github size={18} aria-hidden="true" />Download on GitHub</a>
           <a className="button secondary" href="#cockpit">See the cockpit<ArrowRight size={18} aria-hidden="true" /></a>
         </div>
         <p className="device-note"><Smartphone size={17} aria-hidden="true" />Designed around the Galaxy S24 in landscape. Supports Android 10+.</p>
@@ -242,9 +248,10 @@ function LaunchSection() {
   return (
     <section className="launch-section" id="launch" aria-labelledby="launch-title">
       <Brand />
-      <div><h2 id="launch-title">Built for the road.<br />Ready for anything.</h2><p>GMODE Trip Recorder v2.0 is preparing for Google Play.</p></div>
+      <div><h2 id="launch-title">Built for the road.<br />Ready for anything.</h2><p>GMODE Trip Recorder v2.0 is preparing for Google Play. Public GitHub releases are the official download source.</p></div>
       <div className="launch-actions">
-        <a className="button primary" href={`mailto:${launchEmail}?subject=GMODE%20Trip%20Recorder%20Google%20Play%20Launch`}>Get launch updates<ArrowRight size={18} aria-hidden="true" /></a>
+        <a className="button primary" href={githubInstallZip} target="_blank" rel="noreferrer"><Download size={18} aria-hidden="true" />Download v2.0</a>
+        <a className="release-link" href={githubRelease} target="_blank" rel="noreferrer"><Github size={17} aria-hidden="true" />Release notes + checksums</a>
         <a className="email-link" href={`mailto:${launchEmail}`}><Mail size={17} aria-hidden="true" />{launchEmail}</a>
       </div>
     </section>
@@ -255,7 +262,7 @@ function Footer() {
   return (
     <footer className="site-footer">
       <p>© {new Date().getFullYear()} GMODE</p>
-      <div><a href="/marketing/gmode-marketing-kit.md">Media kit</a><a href="/marketing/gmode-launch-preview.mp4">Launch video</a><a href="/admin">Admin</a></div>
+      <div><a href={githubProfile} target="_blank" rel="noreferrer">GitHub profile</a><a href={githubRelease} target="_blank" rel="noreferrer">Official downloads</a><a href="/marketing/gmode-marketing-kit.md">Media kit</a><a href="/admin">Admin</a></div>
     </footer>
   );
 }
@@ -305,7 +312,7 @@ function Admin() {
           <p className="admin-status">Signed in as {session.email}</p><h1>Owner console</h1>
           <div className="admin-grid">
             <article><h2>Public site</h2><p>The website now matches the real GMODE Trip Recorder v2.0 cockpit and S24 workflow.</p></article>
-            <article><h2>Launch</h2><p>Google Play is shown as coming soon. Contact mail goes to {launchEmail}.</p></article>
+            <article><h2>Launch</h2><p>Google Play is shown as coming soon. Public GitHub releases are the official download source, and contact mail goes to {launchEmail}.</p></article>
             <article><h2>Source</h2><p>App screenshots and product claims are sourced from the current Jarvis Android project.</p></article>
           </div>
           <button className="button secondary" type="button" onClick={handleLogout}><LogOut size={18} aria-hidden="true" />Sign out</button>
