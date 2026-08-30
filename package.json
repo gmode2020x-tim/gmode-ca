@@ -1,16 +1,18 @@
 {
   "name": "gmode-ca",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
+    "test": "node scripts/test-analytics.mjs",
     "preview": "vite preview --host 127.0.0.1",
     "deploy": "npx --yes vercel@56.3.1 --prod",
     "deploy:preview": "npx --yes vercel@56.3.1"
   },
   "dependencies": {
+    "@vercel/blob": "^2.6.1",
     "@vitejs/plugin-react": "^5.0.0",
     "lucide-react": "^0.468.0",
     "react": "^19.1.0",

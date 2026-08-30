@@ -6,6 +6,15 @@ const COOKIE_NAME = "gmode_session";
 const SESSION_TTL_SECONDS = 60 * 60 * 24 * 7;
 let localEnv = null;
 
+function normalizeEnvValue(value) {
+  const trimmed = String(value || "").trim();
+  const first = trimmed[0];
+  const last = trimmed.at(-1);
+  return trimmed.length >= 2 && ((first === '"' && last === '"') || (first === "'" && last === "'"))
+    ? trimmed.slice(1, -1)
+    : trimmed;
+}
+
 export function envValue(name) {
   if (process.env.VERCEL) {
     return process.env[name] || "";
@@ -18,7 +27,7 @@ export function envValue(name) {
       for (const line of fs.readFileSync(envPath, "utf8").split(/\r?\n/)) {
         const match = line.match(/^([A-Z0-9_]+)=(.*)$/);
         if (match) {
-          localEnv[match[1]] = match[2];
+          localEnv[match[1]] = normalizeEnvValue(match[2]);
         }
       }
     }
@@ -39,6 +48,10 @@ function safeEqual(a, b) {
   const left = Buffer.from(a);
   const right = Buffer.from(b);
   return left.length === right.length && crypto.timingSafeEqual(left, right);
+}
+
+export function safeEqualText(a, b) {
+  return safeEqual(String(a || ""), String(b || ""));
 }
 
 export function createSession(email) {
@@ -80,6 +93,18 @@ export function readSession(req) {
   } catch {
     return null;
   }
+}
+
+export function requireAdmin(req, res) {
+  const session = readSession(req);
+  if (session) return session;
+
+  res.writeHead(401, {
+    "Content-Type": "application/json",
+    "Cache-Control": "private, no-store",
+  });
+  res.end(JSON.stringify({ error: "Not authenticated" }));
+  return null;
 }
 
 export function sessionCookie(token, req) {

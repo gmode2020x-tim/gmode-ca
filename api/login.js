@@ -1,8 +1,11 @@
-import { createSession, envValue, sessionCookie } from "./_auth.js";
+import { createSession, envValue, safeEqualText, sessionCookie } from "./_auth.js";
+
+const ADMIN_EMAIL = "tim@gmode.ca";
 
 function send(res, status, body, headers = {}) {
   res.writeHead(status, {
     "Content-Type": "application/json",
+    "Cache-Control": "private, no-store",
     ...headers,
   });
   res.end(JSON.stringify(body));
@@ -37,14 +40,16 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { password } = await readBody(req);
-    if (password !== configuredPassword) {
-      send(res, 401, { error: "Invalid password" });
+    const { email, password } = await readBody(req);
+    const validEmail = safeEqualText(String(email || "").trim().toLowerCase(), ADMIN_EMAIL);
+    const validPassword = safeEqualText(password, configuredPassword);
+    if (!validEmail || !validPassword) {
+      send(res, 401, { error: "Invalid email or password" });
       return;
     }
 
-    const token = createSession("tim@gmode.ca");
-    send(res, 200, { email: "tim@gmode.ca" }, { "Set-Cookie": sessionCookie(token, req) });
+    const token = createSession(ADMIN_EMAIL);
+    send(res, 200, { email: ADMIN_EMAIL }, { "Set-Cookie": sessionCookie(token, req) });
   } catch {
     send(res, 400, { error: "Invalid request" });
   }
