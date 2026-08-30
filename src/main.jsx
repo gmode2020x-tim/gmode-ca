@@ -124,8 +124,9 @@ function SiteHeader() {
 
   return (
     <header className="site-header">
-      <a href="#top" aria-label="GMODE home" onClick={closeMenu}>
+      <a className="header-brand" href="#top" aria-label="GMODE home" onClick={closeMenu}>
         <Brand compact />
+        <span className="header-brand__meta">Software tools | Connected systems</span>
       </a>
       <nav className={menuOpen ? "is-open" : ""} aria-label="Primary navigation">
         <a href="#products" onClick={closeMenu}>Products</a>
