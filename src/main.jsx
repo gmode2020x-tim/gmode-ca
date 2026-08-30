@@ -5,9 +5,9 @@ import {
   ArrowLeft,
   ArrowRight,
   BarChart3,
-  Box,
+  BrainCircuit,
   CalendarDays,
-  Code2,
+  Cog,
   Download,
   ExternalLink,
   Eye,
@@ -17,6 +17,7 @@ import {
   LogOut,
   Mail,
   Menu,
+  Network,
   Package,
   RefreshCw,
   Route,
@@ -63,8 +64,7 @@ function App() {
 function Brand({ compact = false }) {
   return (
     <span className={`brand${compact ? " brand--compact" : ""}`}>
-      <Code2 aria-hidden="true" />
-      <strong>GMODE</strong>
+      <strong><span>G</span>MODE</strong>
     </span>
   );
 }
@@ -107,7 +107,9 @@ function PublicSite() {
       <SiteHeader />
       <main>
         <Hero />
+        <CapabilityRail />
         <ProductsSection tripRecorderRef={tripRecorderRef} jarvisRef={jarvisRef} />
+        <CapabilitiesSection />
         <CompanySection />
       </main>
       <SiteFooter />
@@ -126,6 +128,7 @@ function SiteHeader() {
       </a>
       <nav className={menuOpen ? "is-open" : ""} aria-label="Primary navigation">
         <a href="#products" onClick={closeMenu}>Products</a>
+        <a href="#capabilities" onClick={closeMenu}>Capabilities</a>
         <a href="#company" onClick={closeMenu}>Company</a>
         <a href={`mailto:${contactEmail}`} onClick={() => { closeMenu(); trackAnalytics("contact_click", { section: "header" }); }}>Contact</a>
       </nav>
@@ -148,13 +151,33 @@ function Hero() {
   return (
     <section className="hero" id="top" aria-labelledby="hero-title">
       <div className="hero__inner">
-        <h1 id="hero-title">Software built for<br />the real world.</h1>
-        <p>GMODE creates focused tools for navigation, telemetry, automation, and the systems that connect them.</p>
+        <h1 id="hero-title">Smart tools.<br /><span>Solid systems.</span></h1>
+        <p>GMODE builds practical software for navigation, local AI, telemetry, and automation.</p>
         <div className="hero__actions">
-          <a className="button button--primary" href="#products"><Box size={18} aria-hidden="true" />Explore products</a>
-          <a className="text-link" href={`mailto:${contactEmail}`} onClick={() => trackAnalytics("contact_click", { section: "hero" })}>Contact GMODE<ArrowRight size={18} aria-hidden="true" /></a>
+          <a className="button button--primary" href="#products">Explore products<ArrowRight size={18} aria-hidden="true" /></a>
+          <a className="button button--secondary" href={`mailto:${contactEmail}`} onClick={() => trackAnalytics("contact_click", { section: "hero" })}>Contact GMODE<ArrowRight size={18} aria-hidden="true" /></a>
         </div>
       </div>
+    </section>
+  );
+}
+
+const capabilities = [
+  [Route, "Navigation", "Record and review GPS journeys with practical telemetry."],
+  [BrainCircuit, "Local AI", "Run language models locally with control over data and context."],
+  [Cog, "Automation", "Build workflows that respond to events, data, and system state."],
+  [Network, "Connected systems", "Integrate with Home Assistant and trusted local services."],
+];
+
+function CapabilityRail() {
+  return (
+    <section className="capability-rail" aria-label="GMODE capabilities">
+      {capabilities.map(([Icon, label]) => (
+        <div key={label}>
+          <span aria-hidden="true"><Icon /></span>
+          <strong>{label}</strong>
+        </div>
+      ))}
     </section>
   );
 }
@@ -162,9 +185,9 @@ function Hero() {
 function ProductsSection({ tripRecorderRef, jarvisRef }) {
   return (
     <section className="products-section" id="products" aria-labelledby="products-title">
-      <div className="section-title-row">
-        <h2 id="products-title">Products</h2>
-        <span aria-hidden="true" />
+      <div className="section-intro">
+        <span className="section-label">Products</span>
+        <h2 id="products-title">Built for real-world systems.</h2>
       </div>
       <article className="featured-product" ref={tripRecorderRef} id="trip-recorder">
         <div className="product-media">
@@ -194,7 +217,7 @@ function ProductsSection({ tripRecorderRef, jarvisRef }) {
               <ExternalLink size={17} aria-hidden="true" />View product
             </a>
             <a
-              className="text-link"
+              className="button button--secondary"
               href={tripRecorderRelease}
               target="_blank"
               rel="noreferrer"
@@ -233,7 +256,7 @@ function ProductsSection({ tripRecorderRef, jarvisRef }) {
               <Github size={18} aria-hidden="true" />View source
             </a>
             <a
-              className="text-link"
+              className="button button--secondary"
               href={jarvisInstallGuide}
               target="_blank"
               rel="noreferrer"
@@ -244,9 +267,25 @@ function ProductsSection({ tripRecorderRef, jarvisRef }) {
           </div>
         </div>
       </article>
-      <div className="future-product">
-        <span className="future-product__icon" aria-hidden="true"><Box /></span>
-        <div><h3>More products coming soon.</h3><p>The product catalog is ready to grow as new GMODE software is released.</p></div>
+    </section>
+  );
+}
+
+function CapabilitiesSection() {
+  return (
+    <section className="capabilities-section" id="capabilities" aria-labelledby="capabilities-title">
+      <div className="section-intro section-intro--compact">
+        <span className="section-label">Capabilities</span>
+        <h2 id="capabilities-title">Practical by design.</h2>
+      </div>
+      <div className="capability-details">
+        {capabilities.map(([Icon, label, description]) => (
+          <article key={label}>
+            <Icon aria-hidden="true" />
+            <h3>{label === "Navigation" ? "Navigation & telemetry" : label}</h3>
+            <p>{description}</p>
+          </article>
+        ))}
       </div>
     </section>
   );
@@ -256,13 +295,11 @@ function CompanySection() {
   return (
     <section className="company-section" id="company" aria-labelledby="company-title">
       <div className="company-copy">
-        <h2 id="company-title">Built around<br />useful systems.</h2>
-        <p>GMODE is an independent software company building practical tools for navigation, telemetry, automation, and connected systems.</p>
-        <p>Our software is privacy-minded, local-first, and designed to stay useful when connectivity is unavailable.</p>
-        <p>We keep the work focused, transparent, and directly reachable.</p>
+        <span className="section-label">Company</span>
+        <h2 id="company-title">Useful systems, built deliberately.</h2>
+        <p>GMODE is an independent software company building practical, privacy-minded tools for navigation, local AI, telemetry, automation, and connected systems.</p>
         <a className="text-link" href={`mailto:${contactEmail}`} onClick={() => trackAnalytics("contact_click", { section: "company" })}><Mail size={18} aria-hidden="true" />Contact GMODE<ArrowRight size={18} aria-hidden="true" /></a>
       </div>
-      <img className="systems-graphic" src="/brand/gmode-connected-systems.png" alt="Connected navigation, telemetry, server, and local automation systems" width="1200" height="1200" />
     </section>
   );
 }
