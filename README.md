@@ -106,5 +106,6 @@ apex and `www` redirect, `/admin`, API cache headers, security headers, public a
 - `docs/concepts/gmode-industrial-products-concept.png`
 
 The production UI is code-native React/CSS. Generated raster assets used by the implementation live in
-`public/brand/`. The current public hero uses `public/brand/gmode-industrial-workstation-hero.png`; website
-text and controls remain code-native for accessibility and responsive layout.
+`public/brand/`. The current public hero uses `public/brand/gmode-reference-workstation-hero-v2.png`, derived
+from the supplied GMODE industrial reference while preserving code-native website text and controls for
+accessibility and responsive layout.
