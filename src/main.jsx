@@ -34,11 +34,19 @@ const contactEmail = "tim@gmode.ca";
 const githubProfile = "https://github.com/gmode2020x-tim";
 const tripRecorderRepository = `${githubProfile}/gmode-trip-recorder`;
 const tripRecorderRelease = `${tripRecorderRepository}/releases/tag/v2.0.0`;
+const jarvisRepository = `${githubProfile}/jarvis-local-llm`;
+const jarvisInstallGuide = `${jarvisRepository}#quick-start`;
 
-const productFacts = [
+const tripRecorderFacts = [
   [Smartphone, "Android 10+"],
   [Route, "Offline first"],
   [Home, "Home Assistant sync"],
+];
+
+const jarvisFacts = [
+  [ServerCog, "Self-hosted"],
+  [Activity, "Ollama compatible"],
+  [Home, "Home Assistant ready"],
 ];
 
 const metricDefinitions = [
@@ -62,25 +70,35 @@ function Brand({ compact = false }) {
 }
 
 function PublicSite() {
-  const productRef = useRef(null);
+  const tripRecorderRef = useRef(null);
+  const jarvisRef = useRef(null);
 
   useEffect(() => {
     startAnalytics();
   }, []);
 
   useEffect(() => {
-    const product = productRef.current;
-    if (!product || !("IntersectionObserver" in window)) return undefined;
+    const products = [
+      [tripRecorderRef.current, "GMODE Trip Recorder"],
+      [jarvisRef.current, "Jarvis Local LLM Assistant"],
+    ].filter(([element]) => element);
+    if (!products.length || !("IntersectionObserver" in window)) return undefined;
+
+    const productNames = new Map(products);
+    const viewedProducts = new Set();
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        trackAnalytics("product_view", { product: "GMODE Trip Recorder", section: "products" });
-        observer.disconnect();
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting || viewedProducts.has(entry.target)) return;
+          viewedProducts.add(entry.target);
+          trackAnalytics("product_view", { product: productNames.get(entry.target), section: "products" });
+          observer.unobserve(entry.target);
+        });
       },
       { threshold: 0.45 },
     );
-    observer.observe(product);
+    products.forEach(([element]) => observer.observe(element));
     return () => observer.disconnect();
   }, []);
 
@@ -89,7 +107,7 @@ function PublicSite() {
       <SiteHeader />
       <main>
         <Hero />
-        <ProductsSection productRef={productRef} />
+        <ProductsSection tripRecorderRef={tripRecorderRef} jarvisRef={jarvisRef} />
         <CompanySection />
       </main>
       <SiteFooter />
@@ -141,14 +159,14 @@ function Hero() {
   );
 }
 
-function ProductsSection({ productRef }) {
+function ProductsSection({ tripRecorderRef, jarvisRef }) {
   return (
     <section className="products-section" id="products" aria-labelledby="products-title">
       <div className="section-title-row">
         <h2 id="products-title">Products</h2>
         <span aria-hidden="true" />
       </div>
-      <article className="featured-product" ref={productRef} id="trip-recorder">
+      <article className="featured-product" ref={tripRecorderRef} id="trip-recorder">
         <div className="product-media">
           <img
             src="/app/01-attitude-dashboard.png"
@@ -163,7 +181,7 @@ function ProductsSection({ productRef }) {
             <div><h3>GMODE Trip Recorder</h3><p>Offline-first GPS recording and live telemetry for Android.</p></div>
           </div>
           <ul className="product-facts">
-            {productFacts.map(([Icon, label]) => <li key={label}><Icon aria-hidden="true" /><span>{label}</span></li>)}
+            {tripRecorderFacts.map(([Icon, label]) => <li key={label}><Icon aria-hidden="true" /><span>{label}</span></li>)}
           </ul>
           <div className="product-actions">
             <a
@@ -183,6 +201,45 @@ function ProductsSection({ productRef }) {
               onClick={() => trackAnalytics("download_click", { product: "GMODE Trip Recorder", section: "products" })}
             >
               <Github size={18} aria-hidden="true" />Official download
+            </a>
+          </div>
+        </div>
+      </article>
+      <article className="featured-product featured-product--reverse" ref={jarvisRef} id="jarvis">
+        <div className="product-media product-media--diagram">
+          <img
+            src="/jarvis/architecture.svg"
+            alt="Jarvis workstation, local LLM host, Home Assistant, and local data architecture"
+            width="960"
+            height="420"
+          />
+        </div>
+        <div className="product-details">
+          <div className="product-heading">
+            <span className="product-mark" aria-hidden="true"><ServerCog /></span>
+            <div><h3>Jarvis Local LLM Assistant</h3><p>Self-hosted AI for local workstations, Ollama, and Home Assistant.</p></div>
+          </div>
+          <ul className="product-facts">
+            {jarvisFacts.map(([Icon, label]) => <li key={label}><Icon aria-hidden="true" /><span>{label}</span></li>)}
+          </ul>
+          <div className="product-actions">
+            <a
+              className="button button--primary"
+              href={jarvisRepository}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => trackAnalytics("product_click", { product: "Jarvis Local LLM Assistant", section: "products" })}
+            >
+              <Github size={18} aria-hidden="true" />View source
+            </a>
+            <a
+              className="text-link"
+              href={jarvisInstallGuide}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => trackAnalytics("download_click", { product: "Jarvis Local LLM Assistant", section: "products" })}
+            >
+              <ExternalLink size={17} aria-hidden="true" />Installation guide
             </a>
           </div>
         </div>

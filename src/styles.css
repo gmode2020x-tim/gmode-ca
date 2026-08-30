@@ -155,11 +155,17 @@ svg { flex: 0 0 auto; }
   padding-block: 42px;
   border-bottom: 1px dashed var(--line-bright);
 }
+.featured-product--reverse { grid-template-columns: minmax(330px, 0.8fr) minmax(0, 1.45fr); }
+.featured-product--reverse .product-media { order: 2; }
 .product-media { align-self: center; aspect-ratio: 16 / 9; overflow: hidden; border: 1px solid var(--line-bright); border-radius: 5px; background: #020305; }
 .product-media img { width: 100%; height: 100%; object-fit: contain; }
+.product-media--diagram { aspect-ratio: 16 / 7; background: #0b0f12; }
 .product-details { align-self: center; }
 .product-heading { display: grid; grid-template-columns: 64px 1fr; gap: 18px; align-items: center; }
-.product-heading > img { width: 64px; height: 64px; border-radius: 5px; }
+.product-heading > img,
+.product-mark { width: 64px; height: 64px; border-radius: 5px; }
+.product-mark { display: grid; place-items: center; border: 1px solid var(--line-bright); background: #0b1118; color: var(--blue); }
+.product-mark svg { width: 31px; height: 31px; }
 .product-heading h3 { margin: 0; font-size: 25px; line-height: 1.15; letter-spacing: 0; }
 .product-heading p { margin: 8px 0 0; color: var(--muted); line-height: 1.55; }
 .product-facts { display: grid; gap: 0; margin: 27px 0; padding: 0; list-style: none; }
@@ -276,7 +282,8 @@ svg { flex: 0 0 auto; }
 
 @media (max-width: 980px) {
   .hero h1 { font-size: 60px; }
-  .featured-product { grid-template-columns: 1fr; }
+  .featured-product, .featured-product--reverse { grid-template-columns: 1fr; }
+  .featured-product--reverse .product-media { order: 0; }
   .product-details { width: min(100%, 680px); }
   .company-section { gap: 34px; }
   .metrics-band { grid-template-columns: repeat(2, 1fr); }
@@ -326,7 +333,8 @@ svg { flex: 0 0 auto; }
   .hero__actions { width: 100%; align-items: flex-start; flex-direction: column; gap: 20px; }
   .section-title-row h2 { font-size: 28px; }
   .product-heading { grid-template-columns: 52px 1fr; }
-  .product-heading > img { width: 52px; height: 52px; }
+  .product-heading > img, .product-mark { width: 52px; height: 52px; }
+  .product-mark svg { width: 27px; height: 27px; }
   .product-heading h3 { font-size: 21px; }
   .product-actions { align-items: flex-start; flex-direction: column; }
   .future-product { grid-template-columns: 72px 1fr; gap: 18px; }

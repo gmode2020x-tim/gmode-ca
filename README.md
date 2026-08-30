@@ -1,9 +1,10 @@
 # gmode.ca
 
 Public company website for **GMODE**, an independent software company building focused tools for navigation,
-telemetry, automation, and connected systems. The first advertised product is **GMODE Trip Recorder**.
+telemetry, automation, and connected systems. Advertised products currently include **GMODE Trip Recorder**
+and **Jarvis Local LLM Assistant**.
 
-## Current product
+## Current products
 
 GMODE Trip Recorder is maintained in its own public repository:
 
@@ -15,6 +16,15 @@ GMODE Trip Recorder is maintained in its own public repository:
 
 Product screenshots copied for the website live in `public/app/`. Refresh those assets from the standalone
 product repository when the Android release artwork changes.
+
+Jarvis Local LLM Assistant is maintained in its own public repository:
+
+- Repository: `https://github.com/gmode2020x-tim/jarvis-local-llm`
+- Installation guide: `https://github.com/gmode2020x-tim/jarvis-local-llm#quick-start`
+- Authoritative architecture artwork: `jarvis-local-llm/docs/assets/architecture.svg`
+
+The Jarvis architecture artwork copied for the website lives in `public/jarvis/`. Refresh it from the Jarvis
+repository whenever the product architecture changes.
 
 ## Site structure
 
@@ -71,8 +81,8 @@ npm audit --omit=dev
 Before deployment, verify:
 
 1. The first viewport presents GMODE as the company and previews the Products section.
-2. The Trip Recorder screenshot remains fully contained at desktop and mobile widths.
-3. Product, official-download, GitHub, contact, and sign-in links work.
+2. The Trip Recorder screenshot and Jarvis architecture remain fully contained at desktop and mobile widths.
+3. Product, source, installation, official-download, GitHub, contact, and sign-in links work.
 4. `/admin` accepts the configured email and password, rejects invalid credentials, and loads 7/30/90-day reports.
 5. Empty, loading, storage-error, and signed-out analytics states remain usable.
 6. Desktop and mobile layouts have no clipping, overlap, or horizontal scrolling.
