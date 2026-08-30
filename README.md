@@ -108,4 +108,5 @@ apex and `www` redirect, `/admin`, API cache headers, security headers, public a
 The production UI is code-native React/CSS. Generated raster assets used by the implementation live in
 `public/brand/`. The current public hero uses `public/brand/gmode-reference-workstation-hero-v2.png`, derived
 from the supplied GMODE industrial reference while preserving code-native website text and controls for
-accessibility and responsive layout.
+accessibility and responsive layout. The variable Inter webfont is bundled locally through
+`@fontsource-variable/inter` so typography does not depend on fonts installed on a visitor's device.
