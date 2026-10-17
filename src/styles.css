@@ -99,9 +99,94 @@ svg { flex: 0 0 auto; }
   background: #03070c;
   overflow: hidden;
 }
-.hero-scene { position: absolute; z-index: -1; inset: 0; overflow: hidden; background: #03070c; }
-.hero-scene__canvas { display: block; width: 100%; height: 100%; }
-.hero-scene[data-fallback="true"] { background: #03070c url("/brand/gmode-reference-workstation-hero-v2.png") 68% center / cover no-repeat; }
+.hero-scene {
+  --scene-x: 0px;
+  --scene-y: 0px;
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  overflow: hidden;
+  background: #03070c;
+}
+.hero-scene::before {
+  content: "";
+  position: absolute;
+  z-index: 8;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(2, 5, 9, 0.98) 0%, rgba(2, 5, 9, 0.88) 27%, rgba(2, 5, 9, 0.38) 47%, rgba(2, 5, 9, 0.04) 70%),
+    linear-gradient(0deg, rgba(2, 5, 9, 0.28), transparent 35%);
+}
+.hero-scene__motion { position: absolute; inset: -2%; transform: translate3d(var(--scene-x), var(--scene-y), 0); transition: transform 320ms ease-out; }
+.hero-scene__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.94;
+  transform: scale(1.035);
+  animation: hero-image-breathe 12s ease-in-out infinite alternate;
+}
+.hero-scene__glow {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  background: radial-gradient(circle at 63% 55%, rgba(22, 140, 255, 0.18), transparent 23%);
+  mix-blend-mode: screen;
+  animation: hero-glow 4.8s ease-in-out infinite;
+}
+.hero-scene__scan {
+  position: absolute;
+  z-index: 3;
+  inset: -20% auto -20% -32%;
+  width: 18%;
+  transform: skewX(-15deg);
+  background: linear-gradient(90deg, transparent, rgba(125, 222, 255, 0.16), transparent);
+  mix-blend-mode: screen;
+  animation: hero-scan 9s linear infinite;
+}
+.hero-scene__signal {
+  position: absolute;
+  z-index: 6;
+  width: 7px;
+  height: 5px;
+  border: 1px solid #d7f8ff;
+  border-radius: 1px;
+  background: #45bdff;
+  box-shadow: 0 0 9px #168cff, 0 0 18px rgba(22, 140, 255, 0.72);
+  animation: hero-signal 2.4s ease-in-out infinite;
+}
+.hero-scene__signal--one { left: 59.5%; top: 27%; }
+.hero-scene__signal--two { left: 59.5%; top: 43%; animation-delay: -0.6s; }
+.hero-scene__signal--three { left: 59.5%; top: 59%; animation-delay: -1.2s; }
+.hero-scene__signal--four { left: 59.5%; top: 73%; animation-delay: -1.8s; }
+.hero-scene__marker {
+  position: absolute;
+  z-index: 6;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid rgba(91, 195, 255, 0.62);
+  border-radius: 50%;
+  color: #a9e8ff;
+  background: rgba(2, 10, 18, 0.72);
+  box-shadow: 0 0 18px rgba(22, 140, 255, 0.28);
+  animation: hero-marker 3.8s ease-in-out infinite;
+}
+.hero-scene__marker--gps { left: 43%; top: 68%; }
+.hero-scene__marker--wifi { right: 9%; top: 18%; animation-delay: -1.9s; }
+
+@keyframes hero-image-breathe {
+  from { transform: scale(1.035); filter: brightness(0.92) saturate(0.94); }
+  to { transform: scale(1.065); filter: brightness(1.04) saturate(1.08); }
+}
+@keyframes hero-glow { 50% { opacity: 0.55; } }
+@keyframes hero-scan { to { left: 128%; } }
+@keyframes hero-signal { 50% { opacity: 0.34; transform: scale(0.72); } }
+@keyframes hero-marker { 50% { border-color: rgba(139, 228, 255, 0.92); box-shadow: 0 0 24px rgba(22, 140, 255, 0.48); } }
 .hero__inner {
   position: relative;
   z-index: 1;
@@ -311,6 +396,8 @@ svg { flex: 0 0 auto; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .spin { animation: none; }
+  .hero-scene__motion { transform: none; transition: none; }
+  .hero-scene__image, .hero-scene__glow, .hero-scene__scan, .hero-scene__signal, .hero-scene__marker { animation: none; }
   .product-media img { transition: none; }
   .featured-product:hover .product-media img { transform: none; }
 }
@@ -350,7 +437,10 @@ svg { flex: 0 0 auto; }
 
 @media (max-width: 760px) {
   .hero { min-height: calc(100svh - 208px); }
-  .hero-scene { opacity: 0.55; }
+  .hero-scene__motion { inset: -1%; }
+  .hero-scene__image { object-position: 66% center; opacity: 0.72; }
+  .hero-scene::before { background: linear-gradient(90deg, rgba(2, 5, 9, 0.94), rgba(2, 5, 9, 0.57) 78%, rgba(2, 5, 9, 0.24)); }
+  .hero-scene__marker, .hero-scene__signal { display: none; }
   .hero__inner { width: calc(100% - 36px); min-height: calc(100svh - 208px); padding-block: 58px 48px; }
   .hero h1 { font-size: 50px; }
   .hero p { font-size: 18px; }
