@@ -154,6 +154,9 @@ export default function HeroScene() {
     const networkGroups = [];
     const nodeMaterials = [];
     const packetGroups = [];
+    const gpsBeamMaterials = [];
+    const satelliteGroups = [];
+    const wifiArcMaterials = [];
 
     networkDefinitions.forEach((definition, networkIndex) => {
       const [networkX, networkY] = definition.position;
@@ -179,35 +182,114 @@ export default function HeroScene() {
       network.add(platform);
       network.add(new THREE.LineSegments(new THREE.EdgesGeometry(platform.geometry), edgeMaterial(definition.color, 0.46)));
 
-      const connectionPositions = [];
-      topology.connections.forEach(([from, to]) => {
-        const startNode = topology.nodes[from];
-        const endNode = topology.nodes[to];
-        connectionPositions.push(startNode[0], startNode[1], 0.02, endNode[0], endNode[1], 0.02);
-      });
-      const localGeometry = new THREE.BufferGeometry();
-      localGeometry.setAttribute("position", new THREE.Float32BufferAttribute(connectionPositions, 3));
-      network.add(new THREE.LineSegments(localGeometry, edgeMaterial(definition.color, 0.42)));
-
-      const nodes = new THREE.Group();
-      topology.nodes.forEach(([x, y], nodeIndex) => {
-        const isHub = nodeIndex === topology.hub;
-        const material = new THREE.MeshStandardMaterial({
+      if (networkIndex === 0) {
+        const receiverMaterial = new THREE.MeshStandardMaterial({
           color: 0x081725,
           emissive: definition.color,
-          emissiveIntensity: isHub ? 1.8 : 0.82,
+          emissiveIntensity: 1.5,
           metalness: 0.62,
           roughness: 0.3,
         });
-        const node = new THREE.Mesh(
-          new THREE.BoxGeometry(isHub ? 0.22 : 0.16, isHub ? 0.22 : 0.16, isHub ? 0.24 : 0.16),
-          material,
-        );
-        node.position.set(x, y, 0.1);
-        nodes.add(node);
-        nodeMaterials.push(material);
-      });
-      network.add(nodes);
+        const receiver = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.14, 0.18), receiverMaterial);
+        receiver.position.set(0, -0.27, 0.11);
+        network.add(receiver);
+        nodeMaterials.push(receiverMaterial);
+
+        const satellitePositions = [[-0.42, 0.24], [0, 0.31], [0.42, 0.2]];
+        const gpsConnections = [];
+        satellitePositions.forEach(([x, y], satelliteIndex) => {
+          const satellite = new THREE.Group();
+          satellite.position.set(x, y, 0.12);
+          const satelliteMaterial = new THREE.MeshStandardMaterial({
+            color: 0x0a1926,
+            emissive: definition.color,
+            emissiveIntensity: 0.82,
+            metalness: 0.78,
+            roughness: 0.26,
+          });
+          const body = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.1, 0.13), satelliteMaterial);
+          const panelGeometry = new THREE.BoxGeometry(0.11, 0.055, 0.035);
+          const leftPanel = new THREE.Mesh(panelGeometry, satelliteMaterial);
+          const rightPanel = new THREE.Mesh(panelGeometry, satelliteMaterial);
+          leftPanel.position.x = -0.11;
+          rightPanel.position.x = 0.11;
+          satellite.add(body, leftPanel, rightPanel);
+          satellite.rotation.z = satelliteIndex === 1 ? 0 : satelliteIndex === 0 ? -0.12 : 0.12;
+          network.add(satellite);
+          satelliteGroups.push(satellite);
+          nodeMaterials.push(satelliteMaterial);
+          gpsConnections.push(x, y, 0.05, 0, -0.27, 0.05);
+        });
+        const gpsGeometry = new THREE.BufferGeometry();
+        gpsGeometry.setAttribute("position", new THREE.Float32BufferAttribute(gpsConnections, 3));
+        const gpsMaterial = edgeMaterial(definition.color, 0.48);
+        gpsBeamMaterials.push(gpsMaterial);
+        network.add(new THREE.LineSegments(gpsGeometry, gpsMaterial));
+      } else if (networkIndex === 1) {
+        const routerMaterial = new THREE.MeshStandardMaterial({
+          color: 0x081725,
+          emissive: definition.color,
+          emissiveIntensity: 1.55,
+          metalness: 0.62,
+          roughness: 0.3,
+        });
+        const router = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.13, 0.18), routerMaterial);
+        router.position.set(0, -0.3, 0.11);
+        network.add(router);
+        nodeMaterials.push(routerMaterial);
+
+        [-0.48, 0.48].forEach((x) => {
+          const clientMaterial = new THREE.MeshStandardMaterial({
+            color: 0x081725,
+            emissive: definition.color,
+            emissiveIntensity: 0.78,
+            metalness: 0.58,
+            roughness: 0.32,
+          });
+          const client = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.15, 0.15), clientMaterial);
+          client.position.set(x, 0.2, 0.1);
+          network.add(client);
+          nodeMaterials.push(clientMaterial);
+        });
+
+        [0.18, 0.31, 0.44].forEach((radius) => {
+          const arc = new THREE.EllipseCurve(0, -0.22, radius, radius * 0.78, Math.PI * 0.2, Math.PI * 0.8);
+          const points = arc.getPoints(28).map(({ x, y }) => new THREE.Vector3(x, y, 0.07));
+          const arcMaterial = edgeMaterial(definition.color, 0.48);
+          wifiArcMaterials.push(arcMaterial);
+          network.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), arcMaterial));
+        });
+      } else {
+        const connectionPositions = [];
+        topology.connections.forEach(([from, to]) => {
+          const startNode = topology.nodes[from];
+          const endNode = topology.nodes[to];
+          connectionPositions.push(startNode[0], startNode[1], 0.02, endNode[0], endNode[1], 0.02);
+        });
+        const localGeometry = new THREE.BufferGeometry();
+        localGeometry.setAttribute("position", new THREE.Float32BufferAttribute(connectionPositions, 3));
+        network.add(new THREE.LineSegments(localGeometry, edgeMaterial(definition.color, 0.42)));
+
+        const nodes = new THREE.Group();
+        topology.nodes.forEach(([x, y], nodeIndex) => {
+          const isHub = nodeIndex === topology.hub;
+          const material = new THREE.MeshStandardMaterial({
+            color: 0x081725,
+            emissive: definition.color,
+            emissiveIntensity: isHub ? 1.8 : 0.82,
+            metalness: 0.62,
+            roughness: 0.3,
+          });
+          const node = new THREE.Mesh(
+            new THREE.BoxGeometry(isHub ? 0.22 : 0.16, isHub ? 0.22 : 0.16, isHub ? 0.24 : 0.16),
+            material,
+          );
+          node.position.set(x, y, 0.1);
+          nodes.add(node);
+          nodeMaterials.push(material);
+        });
+        network.add(nodes);
+      }
 
       const port = new THREE.Vector3(...definition.port);
       const edgeX = networkX < 0 ? networkX + 0.69 : networkX - 0.69;
@@ -284,9 +366,9 @@ export default function HeroScene() {
       size.height = Math.max(1, Math.round(bounds.height));
       renderer.setSize(size.width, size.height, false);
       camera.aspect = size.width / size.height;
-      camera.position.z = size.width < 760 ? 10.8 : 8.6;
-      system.position.set(size.width < 760 ? 0.9 : 1.78, size.width < 760 ? 0.55 : 0, 0);
-      system.scale.setScalar(size.width < 760 ? 0.62 : 1);
+      camera.position.z = size.width < 760 ? 13.5 : 8.6;
+      system.position.set(size.width < 760 ? 0.3 : 1.78, size.width < 760 ? 0.55 : 0, 0);
+      system.scale.setScalar(size.width < 760 ? 0.64 : 1);
       camera.updateProjectionMatrix();
       renderer.render(scene, camera);
     }
@@ -328,6 +410,16 @@ export default function HeroScene() {
       });
       nodeMaterials.forEach((material, index) => {
         material.emissiveIntensity = 0.7 + ((Math.sin(elapsed * 2.4 + index * 0.58) + 1) * 0.26 * motion);
+      });
+      gpsBeamMaterials.forEach((material) => {
+        material.opacity = 0.28 + ((Math.sin(elapsed * 3.4) + 1) * 0.22 * motion);
+      });
+      satelliteGroups.forEach((satellite, index) => {
+        satellite.rotation.z += Math.sin(elapsed * 1.6 + index) * 0.0008 * motion;
+      });
+      wifiArcMaterials.forEach((material, index) => {
+        const wave = (Math.sin(elapsed * 4.2 - index * 0.85) + 1) / 2;
+        material.opacity = 0.18 + wave * 0.62 * motion;
       });
       updatePackets(elapsed, motion);
       renderer.render(scene, camera);
