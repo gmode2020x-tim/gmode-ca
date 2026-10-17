@@ -63,7 +63,7 @@ Configure these variables in the Vercel project and in `.env.local` for serverle
 - `BLOB_READ_WRITE_TOKEN` - Vercel Blob token for first-party analytics events.
 
 The accepted administrator email is `tim@gmode.ca`. Login failures intentionally use a generic message and
-are limited to five attempts per client and email within fifteen minutes on each warm serverless instance.
+are limited to five attempts per client address within fifteen minutes on each warm serverless instance.
 
 ## Analytics and privacy
 
