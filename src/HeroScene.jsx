@@ -2,10 +2,10 @@ import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 
 const networkDefinitions = [
-  { position: [-2.45, 1.38, 0], port: [-0.88, 0.34, 0.48], color: 0x31b9ff },
-  { position: [2.45, 1.38, 0], port: [0.88, 0.34, 0.48], color: 0x7ce6ff },
-  { position: [-2.45, -1.38, 0], port: [-0.88, -0.34, 0.48], color: 0x168cff },
-  { position: [2.45, -1.38, 0], port: [0.88, -0.34, 0.48], color: 0x56d8c9 },
+  { position: [-2.45, 1.42, -0.22], port: [-0.72, 0.66, 0.46], color: 0x31b9ff },
+  { position: [2.45, 1.42, -0.5], port: [0.72, 0.66, 0.46], color: 0x7ce6ff },
+  { position: [-2.45, -1.42, 0.16], port: [-0.72, -0.66, 0.46], color: 0x168cff },
+  { position: [2.45, -1.42, -0.06], port: [0.72, -0.66, 0.46], color: 0x56d8c9 },
 ];
 
 const networkTopologies = [
@@ -85,29 +85,84 @@ export default function HeroScene() {
     const controller = new THREE.Group();
     system.add(controller);
 
-    const controllerBody = new THREE.Mesh(
-      new THREE.BoxGeometry(1.95, 1.18, 0.72),
-      new THREE.MeshStandardMaterial({
-        color: 0x07111d,
-        emissive: 0x06294a,
-        emissiveIntensity: 0.3,
-        metalness: 0.84,
-        roughness: 0.28,
-      }),
-    );
-    controller.add(controllerBody);
+    const statusBars = [];
+    const controllerModuleYs = [-0.69, -0.23, 0.23, 0.69];
+    controllerModuleYs.forEach((moduleY, moduleIndex) => {
+      const moduleBody = new THREE.Mesh(
+        new THREE.BoxGeometry(1.32, 0.38, 0.8),
+        new THREE.MeshStandardMaterial({
+          color: 0x08131f,
+          emissive: moduleIndex % 2 ? 0x05233c : 0x062b48,
+          emissiveIntensity: 0.34,
+          metalness: 0.9,
+          roughness: 0.24,
+        }),
+      );
+      moduleBody.position.y = moduleY;
+      controller.add(moduleBody);
+      const moduleEdges = new THREE.LineSegments(
+        new THREE.EdgesGeometry(moduleBody.geometry),
+        edgeMaterial(moduleIndex % 2 ? 0x3a779e : 0x31b9ff, 0.66),
+      );
+      moduleEdges.position.y = moduleY;
+      controller.add(moduleEdges);
 
-    controller.add(new THREE.LineSegments(
-      new THREE.EdgesGeometry(controllerBody.geometry),
-      edgeMaterial(0x31b9ff, 0.74),
-    ));
+      const frontPanel = new THREE.Mesh(
+        new THREE.BoxGeometry(1.05, 0.24, 0.035),
+        new THREE.MeshBasicMaterial({ color: 0x010509, transparent: true, opacity: 0.96 }),
+      );
+      frontPanel.position.set(0, moduleY, 0.415);
+      controller.add(frontPanel);
 
-    const frontPanel = new THREE.Mesh(
-      new THREE.BoxGeometry(1.65, 0.88, 0.035),
-      new THREE.MeshBasicMaterial({ color: 0x02060a, transparent: true, opacity: 0.94 }),
+      for (let lightIndex = 0; lightIndex < 5; lightIndex += 1) {
+        const light = new THREE.Mesh(
+          new THREE.BoxGeometry(0.075, 0.035, 0.025),
+          new THREE.MeshBasicMaterial({
+            color: lightIndex === 4 ? 0x56d8c9 : 0x31b9ff,
+            transparent: true,
+            opacity: 0.62,
+          }),
+        );
+        light.position.set(-0.36 + lightIndex * 0.12, moduleY, 0.445);
+        controller.add(light);
+        statusBars.push(light);
+      }
+
+      for (let ventIndex = 0; ventIndex < 4; ventIndex += 1) {
+        const vent = new THREE.Mesh(
+          new THREE.BoxGeometry(0.025, 0.15, 0.025),
+          new THREE.MeshBasicMaterial({ color: 0x17354b, transparent: true, opacity: 0.7 }),
+        );
+        vent.position.set(0.27 + ventIndex * 0.055, moduleY, 0.445);
+        controller.add(vent);
+      }
+    });
+
+    [-0.72, 0.72].forEach((x) => {
+      const rail = new THREE.Mesh(
+        new THREE.BoxGeometry(0.09, 1.92, 0.9),
+        new THREE.MeshStandardMaterial({ color: 0x101b26, metalness: 0.94, roughness: 0.2 }),
+      );
+      rail.position.x = x;
+      controller.add(rail);
+    });
+
+    const base = new THREE.Mesh(
+      new THREE.BoxGeometry(1.8, 0.18, 1.12),
+      new THREE.MeshStandardMaterial({ color: 0x071019, metalness: 0.9, roughness: 0.24 }),
     );
-    frontPanel.position.z = 0.375;
-    controller.add(frontPanel);
+    base.position.y = -1.02;
+    controller.add(base);
+    const baseTrim = new THREE.Mesh(
+      new THREE.BoxGeometry(1.48, 0.12, 0.96),
+      new THREE.MeshStandardMaterial({ color: 0x0c1e2d, emissive: 0x073b66, emissiveIntensity: 0.45, metalness: 0.82, roughness: 0.24 }),
+    );
+    baseTrim.position.y = -0.89;
+    controller.add(baseTrim);
+    const topCap = baseTrim.clone();
+    topCap.scale.set(0.86, 0.78, 0.86);
+    topCap.position.y = 0.93;
+    controller.add(topCap);
 
     const ports = [];
     const portGeometry = new THREE.BoxGeometry(0.22, 0.18, 0.08);
@@ -125,19 +180,8 @@ export default function HeroScene() {
       ports.push(portMesh);
     });
 
-    const statusBars = [];
-    for (let index = 0; index < 7; index += 1) {
-      const bar = new THREE.Mesh(
-        new THREE.BoxGeometry(0.11, 0.04, 0.025),
-        new THREE.MeshBasicMaterial({ color: index < 5 ? 0x31b9ff : 0x56d8c9, transparent: true, opacity: 0.64 }),
-      );
-      bar.position.set(-0.38 + index * 0.13, 0, 0.405);
-      controller.add(bar);
-      statusBars.push(bar);
-    }
-
     const controllerScan = new THREE.Mesh(
-      new THREE.PlaneGeometry(1.55, 0.025),
+      new THREE.PlaneGeometry(1.08, 0.022),
       new THREE.MeshBasicMaterial({
         color: 0xa9f3ff,
         transparent: true,
@@ -146,7 +190,7 @@ export default function HeroScene() {
         blending: THREE.AdditiveBlending,
       }),
     );
-    controllerScan.position.set(0, -0.4, 0.425);
+    controllerScan.position.set(0, -0.84, 0.46);
     controller.add(controllerScan);
 
     const routeCurves = [];
@@ -159,12 +203,26 @@ export default function HeroScene() {
     const wifiArcMaterials = [];
 
     networkDefinitions.forEach((definition, networkIndex) => {
-      const [networkX, networkY] = definition.position;
+      const [networkX, networkY, networkZ] = definition.position;
       const topology = networkTopologies[networkIndex];
       const network = new THREE.Group();
-      network.position.set(networkX, networkY, -0.02);
+      network.position.set(networkX, networkY, networkZ);
+      network.rotation.set(networkIndex < 2 ? -0.04 : 0.055, networkX < 0 ? 0.08 : -0.08, networkX < 0 ? -0.025 : 0.025);
       system.add(network);
       networkGroups.push(network);
+
+      const lowerPlatform = new THREE.Mesh(
+        new THREE.BoxGeometry(1.16, 0.72, 0.12),
+        new THREE.MeshStandardMaterial({
+          color: 0x08131d,
+          emissive: 0x04192c,
+          emissiveIntensity: 0.24,
+          metalness: 0.86,
+          roughness: 0.28,
+        }),
+      );
+      lowerPlatform.position.z = -0.17;
+      network.add(lowerPlatform);
 
       const platform = new THREE.Mesh(
         new THREE.BoxGeometry(1.38, 0.9, 0.08),
@@ -294,8 +352,8 @@ export default function HeroScene() {
       const port = new THREE.Vector3(...definition.port);
       const edgeX = networkX < 0 ? networkX + 0.69 : networkX - 0.69;
       const curve = new THREE.CatmullRomCurve3([
-        new THREE.Vector3(edgeX, networkY, 0.08),
-        new THREE.Vector3(networkX * 0.58, networkY * 0.86, 0.18),
+        new THREE.Vector3(edgeX, networkY, networkZ + 0.08),
+        new THREE.Vector3(networkX * 0.58, networkY * 0.86, networkZ * 0.45 + 0.18),
         new THREE.Vector3(port.x * 1.35, port.y * 1.42, 0.3),
         port,
       ]);
@@ -303,6 +361,16 @@ export default function HeroScene() {
 
       const routeMaterial = edgeMaterial(definition.color, 0.34);
       routeMaterials.push(routeMaterial);
+      system.add(new THREE.Mesh(
+        new THREE.TubeGeometry(curve, 72, 0.018, 5, false),
+        new THREE.MeshBasicMaterial({
+          color: definition.color,
+          transparent: true,
+          opacity: 0.18,
+          depthWrite: false,
+          blending: THREE.AdditiveBlending,
+        }),
+      ));
       system.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(curve.getPoints(72)), routeMaterial));
 
       const packets = [];
@@ -342,6 +410,21 @@ export default function HeroScene() {
     grid.material.transparent = true;
     grid.material.opacity = 0.22;
     system.add(grid);
+
+    const pedestalGlow = new THREE.Mesh(
+      new THREE.RingGeometry(0.72, 1.62, 64),
+      new THREE.MeshBasicMaterial({
+        color: 0x168cff,
+        transparent: true,
+        opacity: 0.16,
+        side: THREE.DoubleSide,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+      }),
+    );
+    pedestalGlow.scale.y = 0.2;
+    pedestalGlow.position.set(0, -1.14, -0.2);
+    system.add(pedestalGlow);
 
     scene.add(new THREE.AmbientLight(0x92dfff, 1.05));
     const keyLight = new THREE.PointLight(0x168cff, 18, 17, 2);
@@ -395,7 +478,7 @@ export default function HeroScene() {
 
       system.rotation.x += ((pointer.y * -0.045 * motion - 0.18) - system.rotation.x) * 0.035;
       system.rotation.y += ((pointer.x * 0.07 * motion - 0.08) - system.rotation.y) * 0.035;
-      controllerScan.position.y = -0.4 + (((elapsed * 0.22 * motion) % 1) * 0.8);
+      controllerScan.position.y = -0.84 + (((elapsed * 0.2 * motion) % 1) * 1.68);
       controllerScan.material.opacity = motion ? 0.42 + Math.sin(elapsed * 4) * 0.16 : 0.42;
 
       routeMaterials.forEach((material, index) => {
