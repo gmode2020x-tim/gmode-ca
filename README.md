@@ -2,14 +2,14 @@
 
 Public company website for **GMODE**, an independent software company building focused tools for navigation,
 telemetry, automation, and connected systems. Advertised products currently include **GMODE Trip Recorder**
-and **Jarvis Local LLM Assistant**.
+and **Jarvis Local LLM Assistant**. Private products remain unpublished until their public launch is approved.
 
 ## Current products
 
 GMODE Trip Recorder is maintained in its own public repository:
 
 - Repository: `https://github.com/gmode2020x-tim/gmode-trip-recorder`
-- Current release: `https://github.com/gmode2020x-tim/gmode-trip-recorder/releases/tag/v2.0.0`
+- Current release: `https://github.com/gmode2020x-tim/gmode-trip-recorder/releases/latest`
 - Android source: `gmode-trip-recorder/app/`
 - Approved product copy: `gmode-trip-recorder/docs/PLAY_STORE_LISTING.md`
 - User-visible behaviour: `gmode-trip-recorder/docs/USER_GUIDE.md`
@@ -19,9 +19,9 @@ product repository when the Android release artwork changes.
 
 Jarvis Local LLM Assistant is maintained in its own public repository:
 
-- Repository: `https://github.com/gmode2020x-tim/jarvis-local-llm`
-- Installation guide: `https://github.com/gmode2020x-tim/jarvis-local-llm#quick-start`
-- Authoritative architecture artwork: `jarvis-local-llm/docs/assets/architecture.svg`
+- Repository: `https://github.com/gmode2020x-tim/local-llm-vm-console`
+- Installation guide: `https://github.com/gmode2020x-tim/local-llm-vm-console#quick-start`
+- Authoritative architecture documentation: `local-llm-vm-console/README.md`
 
 The Jarvis architecture artwork copied for the website lives in `public/jarvis/`. Refresh it from the Jarvis
 repository whenever the product architecture changes.
@@ -62,7 +62,8 @@ Configure these variables in the Vercel project and in `.env.local` for serverle
 - `GMODE_SESSION_SECRET` - long random HMAC secret used to sign the HTTP-only session cookie.
 - `BLOB_READ_WRITE_TOKEN` - Vercel Blob token for first-party analytics events.
 
-The accepted administrator email is `tim@gmode.ca`. Login failures intentionally use a generic message.
+The accepted administrator email is `tim@gmode.ca`. Login failures intentionally use a generic message and
+are limited to five attempts per client and email within fifteen minutes on each warm serverless instance.
 
 ## Analytics and privacy
 

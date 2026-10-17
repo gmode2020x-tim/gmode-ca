@@ -35,8 +35,8 @@ import "./styles.css";
 const contactEmail = "tim@gmode.ca";
 const githubProfile = "https://github.com/gmode2020x-tim";
 const tripRecorderRepository = `${githubProfile}/gmode-trip-recorder`;
-const tripRecorderRelease = `${tripRecorderRepository}/releases/tag/v2.0.0`;
-const jarvisRepository = `${githubProfile}/jarvis-local-llm`;
+const tripRecorderRelease = `${tripRecorderRepository}/releases/latest`;
+const jarvisRepository = `${githubProfile}/local-llm-vm-console`;
 const jarvisInstallGuide = `${jarvisRepository}#quick-start`;
 
 const tripRecorderFacts = [

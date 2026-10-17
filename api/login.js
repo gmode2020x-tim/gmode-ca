@@ -1,4 +1,5 @@
 import { createSession, envValue, safeEqualText, sessionCookie } from "./_auth.js";
+import { clearLoginFailures, getLoginKey, loginLimit, recordLoginFailure } from "./_rateLimit.js";
 
 const ADMIN_EMAIL = "tim@gmode.ca";
 
@@ -33,6 +34,13 @@ export default async function handler(req, res) {
     return;
   }
 
+  const loginKey = getLoginKey(req);
+  const limit = loginLimit(loginKey);
+  if (!limit.allowed) {
+    send(res, 429, { error: "Too many login attempts. Try again later." }, { "Retry-After": String(limit.retryAfter) });
+    return;
+  }
+
   const configuredPassword = envValue("GMODE_ADMIN_PASSWORD");
   if (!configuredPassword) {
     send(res, 503, { error: "Login is not configured" });
@@ -44,10 +52,12 @@ export default async function handler(req, res) {
     const validEmail = safeEqualText(String(email || "").trim().toLowerCase(), ADMIN_EMAIL);
     const validPassword = safeEqualText(password, configuredPassword);
     if (!validEmail || !validPassword) {
+      recordLoginFailure(loginKey);
       send(res, 401, { error: "Invalid email or password" });
       return;
     }
 
+    clearLoginFailures(loginKey);
     const token = createSession(ADMIN_EMAIL);
     send(res, 200, { email: ADMIN_EMAIL }, { "Set-Cookie": sessionCookie(token, req) });
   } catch {
