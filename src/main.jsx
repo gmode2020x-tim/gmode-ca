@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "@fontsource-variable/inter/wght.css";
 import {
@@ -31,6 +31,8 @@ import {
 } from "lucide-react";
 import { startAnalytics, trackAnalytics } from "./analytics.js";
 import "./styles.css";
+
+const HeroScene = lazy(() => import("./HeroScene.jsx"));
 
 const contactEmail = "tim@gmode.ca";
 const githubProfile = "https://github.com/gmode2020x-tim";
@@ -152,6 +154,7 @@ function SiteHeader() {
 function Hero() {
   return (
     <section className="hero" id="top" aria-labelledby="hero-title">
+      <Suspense fallback={<div className="hero-scene" aria-hidden="true" />}><HeroScene /></Suspense>
       <div className="hero__inner">
         <h1 id="hero-title">Smart tools.<br /><span>Solid systems.</span></h1>
         <p>GMODE builds practical software for navigation, local AI, telemetry, and automation.</p>
